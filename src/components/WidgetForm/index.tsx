@@ -6,6 +6,7 @@ import thoughtImageUrl from "../../assets/thought.svg";
 import { useState } from "react";
 import { FeedbackTypeStep } from "./Steps/FeedbackTypeStep";
 import { FeedbackContentStep } from "./Steps/FeedbackContentStep";
+import { FeedbackSuccesseStep } from "./Steps/FeedbackSuccessStep";
 
 export const feedbackTypes = {
   BUG: {
@@ -35,17 +36,29 @@ export type FeedbackTypes = keyof typeof feedbackTypes;
 
 export function WidgetForm() {
   const [feedbackType, setFeedbackTypes] = useState<FeedbackTypes | null>(null);
+  const [feedbackSent, setFeedbackSent] = useState(false);
 
   function handleRestartFeedback() {
-      setFeedbackTypes(null)
+    setFeedbackSent(false)
+    setFeedbackTypes(null);
   }
 
   return (
     <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-      {!feedbackType ? (
-        <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackTypes} />
+      {feedbackSent ? (
+        <FeedbackSuccesseStep onFeedbackRestartRequested={handleRestartFeedback} />
       ) : (
-        <FeedbackContentStep feedbackType={feedbackType} onFeedbackRestartRequested={handleRestartFeedback} />
+        <>
+          {!feedbackType ? (
+            <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackTypes} />
+          ) : (
+            <FeedbackContentStep
+              feedbackType={feedbackType}
+              onFeedbackRestartRequested={handleRestartFeedback}
+              onFeedbackSent={() => setFeedbackSent(true)}
+            />
+          )}
+        </>
       )}
       <footer className="text-xss text-neutral-400">
         Feito com S2 pela{" "}
