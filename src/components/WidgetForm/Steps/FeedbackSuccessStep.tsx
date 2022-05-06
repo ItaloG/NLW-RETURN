@@ -23,7 +23,7 @@ export function FeedbackSuccesseStep({ onFeedbackRestartRequested }: FeedbackSuc
           onClick={onFeedbackRestartRequested}
           className="py-6 px-6 mt-6 bg-zinc-800 rounded-md border-transparent text-sm leading-6 hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500"
         >
-            Quero enviar putro
+            Quero enviar outro
         </button>
       </div>
     </>
